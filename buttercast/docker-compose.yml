@@ -9,6 +9,7 @@ services:
     environment:
       LOADING_MODE: ${LOADING_MODE:-lazy}
       JOB_RUNNER: worker
+      BUTTERCAST_RUNTIME: /app/runtime/daily_aiops
     volumes:
       - runtime:/app/runtime
   worker:
@@ -17,6 +18,7 @@ services:
     command: ["python", "-m", "buttercast.worker"]
     environment:
       JOB_RUNNER: worker
+      BUTTERCAST_RUNTIME: /app/runtime/daily_aiops
     volumes:
       - runtime:/app/runtime
 

@@ -1,6 +1,6 @@
 """Separate training worker: runs the jobs an API started with JOB_RUNNER=worker only queued.
 
-    BUTTERCAST_RUNTIME=runtime/aiops python -m buttercast.worker
+    BUTTERCAST_RUNTIME=runtime/daily_aiops python -m buttercast.worker
 
 The API and the worker share the CSV store (cross-process lock in Store). The API keeps serving and monitoring;
 the worker trains, gates, deploys and runs the service-lab replays. A promotion moves the `deployments` pointer in the store;
@@ -51,7 +51,7 @@ def run_once(ops, pipeline):
 
 def main():
     logging.basicConfig(level=logging.INFO)
-    root = Path(os.environ.get("BUTTERCAST_RUNTIME") or Path(__file__).resolve().parents[1]/"runtime"/"aiops").resolve()
+    root = Path(os.environ.get("BUTTERCAST_RUNTIME") or Path(__file__).resolve().parents[1]/"runtime"/"daily_aiops").resolve()   # same default as app.create_app
     root.mkdir(parents=True, exist_ok=True)
     lock = (root/"worker.lock").open("a")
     try:

@@ -56,8 +56,13 @@ pytest -m "ml or not ml"    # 실제 LSTM 학습을 포함한 전체 (약 2~3분
 
 ```bash
 cd buttercast
-docker compose up --build   # http://127.0.0.1:8091  (API + 학습 워커 2개 컨테이너)
+docker compose up --build -d   # http://127.0.0.1:8091  (API + 학습 워커, 컨테이너 2개)
+docker compose ps              # 둘 다 Up 이어야 합니다
+docker compose down -v         # 끄고 저장된 상태까지 지우기 (-v 없이 끄면 모델·로그가 남습니다)
 ```
+
+두 컨테이너는 같은 볼륨(`runtime`)을 공유합니다. 서비스 탭의 "기준 모델 학습"이나 연속 운영 같은 무거운 작업은 API가 큐에만 넣고 **워커 컨테이너**가 실행합니다.
+화면 위쪽 상태나 `GET /api/health`의 `worker.alive`가 `true`이면 워커가 정상입니다. 로컬 실행과 같은 입력이면 같은 결과가 나옵니다.
 
 ## 설정 (환경변수)
 
