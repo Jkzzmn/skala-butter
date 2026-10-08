@@ -1,0 +1,26 @@
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Runtime state - recreated by the app (CSV store, trained models, MLflow DB, logs)
+runtime/
+mlruns/
+mlartifacts/
+mlflow.db
+*.db
+*.log
+
+# Build output and secrets
+dist/
+.env
+.env.*
